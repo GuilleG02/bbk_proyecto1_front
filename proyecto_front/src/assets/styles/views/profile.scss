@@ -1,0 +1,91 @@
+.profile-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: #fdfdfd;
+}
+
+.profile-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px #0000001a;
+
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #333;
+  }
+
+  p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #555;
+
+    strong {
+      color: #000;
+    }
+  }
+}
+
+.orders-section {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px #0000001a;
+
+  h3 {
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+  }
+
+  .order-list {
+    list-style: none;
+    padding: 0;
+
+    .order-item {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fafafa;
+
+      span {
+        margin-bottom: 0.3rem;
+        color: #444;
+      }
+    }
+  }
+}
+
+// RESPONSIVE
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 1rem;
+  }
+
+  .profile-card,
+  .orders-section {
+    padding: 1.5rem;
+  }
+
+  .order-item {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-card h2,
+  .orders-section h3 {
+    font-size: 1.4rem;
+  }
+
+  .order-item {
+    font-size: 0.9rem;
+  }
+}

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import "../assets/styles/views/register.scss";
+import "../assets/styles/views/login.scss";
 
-const Register = () => {
+const Login = () => {
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
   });
@@ -15,23 +14,13 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Datos de registro:", formData);
+    console.log("Datos de login:", formData);
   };
 
   return (
-    <div className="register-container">
-      <form className="register-form" onSubmit={handleSubmit}>
-        <h2>Registro</h2>
-        <label>
-          Usuario:
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </label>
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2>Iniciar Sesión</h2>
         <label>
           Correo electrónico:
           <input
@@ -52,10 +41,10 @@ const Register = () => {
             required
           />
         </label>
-        <button type="submit">Registrarse</button>
+        <button type="submit">Entrar</button>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default Login;

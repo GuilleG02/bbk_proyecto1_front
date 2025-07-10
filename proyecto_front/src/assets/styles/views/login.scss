@@ -1,4 +1,4 @@
-.register-container {
+.login-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,7 +7,7 @@
   background-color: #f3f3f3;
 }
 
-.register-form {
+.login-form {
   background-color: #fff;
   padding: 2rem;
   border-radius: 10px;
@@ -39,8 +39,8 @@
   button {
     width: 100%;
     padding: 0.8rem;
-    background-color: #007bff;
-    color: #ffffff;
+    background-color: #28a745;
+    color: white;
     font-weight: bold;
     font-size: 1rem;
     border: none;
@@ -49,14 +49,14 @@
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #218838;
     }
   }
 }
 
 // RESPONSIVE
 @media (max-width: 768px) {
-  .register-form {
+  .login-form {
     padding: 1.5rem;
     h2 {
       font-size: 1.6rem;
@@ -72,7 +72,7 @@
 }
 
 @media (max-width: 480px) {
-  .register-form {
+  .login-form {
     padding: 1rem;
 
     h2 {
