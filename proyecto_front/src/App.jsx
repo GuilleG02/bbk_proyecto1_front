@@ -1,17 +1,21 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter} from 'react-router-dom'
 import './App.css'
 import Home from './views/Home'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
 
-    <>
+    <BrowserRouter>
+      <Header />
+      <main className="main-content">
       <Home />
-    </>
+      </main>
+      <Footer />
+    </BrowserRouter>
 
   )
 }

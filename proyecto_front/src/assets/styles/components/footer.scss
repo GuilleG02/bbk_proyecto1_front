@@ -1,0 +1,42 @@
+.footer {
+  background-color: #1d1825;
+  color: #ffffff;
+  padding: 2rem 1.5rem;
+  text-align: center;
+
+  &__content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__text {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    color: #bbbbbb;
+  }
+
+  &__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+
+    li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #78b1cf;
+      }
+    }
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+}

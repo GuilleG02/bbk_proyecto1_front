@@ -1,0 +1,21 @@
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: #39bee7;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  user-select: none;
+
+  img {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin-left: 3vw;
+  }
+
+
+}
