@@ -14,6 +14,7 @@ import Checkout from "./views/Checkout";
 const mockCart = [
   { id: 1, name: "Producto A", price: 50, quantity: 2 },
   { id: 2, name: "Producto B", price: 30, quantity: 1 },
+  { id: 3, name: "Producto C", price: 60, quantity: 3 },
 ];
 
 function App() {
