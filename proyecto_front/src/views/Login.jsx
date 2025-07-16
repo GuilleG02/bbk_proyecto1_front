@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { UserContext } from "../context/UserContext/UserState";
 import "../assets/styles/views/login.scss";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const { login, error } = useContext(UserContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -12,9 +18,15 @@ const Login = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Datos de login:", formData);
+    const success = await login(formData);
+
+    if (success) {
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
   };
 
   return (
@@ -42,6 +54,7 @@ const Login = () => {
           />
         </label>
         <button type="submit">Entrar</button>
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );

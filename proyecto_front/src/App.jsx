@@ -10,6 +10,7 @@ import Login from "./views/Login";
 import Profile from "./views/Profile";
 import Cart from "./views/Cart";
 import Checkout from "./views/Checkout";
+import { UserProvider } from "./context/UserContext/UserState";
 
 const mockCart = [
   { id: 1, name: "Producto A", price: 50, quantity: 2 },
@@ -19,21 +20,26 @@ const mockCart = [
 
 function App() {
   return (
-    <Router>
-      <TheHeader />
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout cartItems={mockCart} />} />
-        </Routes>
-      </main>
-      <Footer />
-    </Router>
+    <UserProvider>
+      <Router>
+        <TheHeader />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/checkout"
+              element={<Checkout cartItems={mockCart} />}
+            />
+          </Routes>
+        </main>
+        <Footer />
+      </Router>
+    </UserProvider>
   );
 }
 
