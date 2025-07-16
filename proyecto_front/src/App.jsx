@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./context/ProductsContext/ProductsState.jsx";
+import { UserProvider } from "./context/UserContext/UserState";
 
 import "./App.css";
 import Home from "./views/Home";
@@ -14,7 +14,6 @@ import Profile from "./views/Profile";
 import Cart from "./views/Cart";
 import Checkout from "./views/Checkout";
 
-
 const mockCart = [
   { id: 1, name: "Producto A", price: 50, quantity: 2 },
   { id: 2, name: "Producto B", price: 30, quantity: 1 },
@@ -24,23 +23,24 @@ const mockCart = [
 function App() {
   return (
     <ProductsProvider>
-      <Router>
-        <TheHeader />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<ProductDetail />} /> {/* ← NUEVA RUTA */}
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout cartItems={mockCart} />} />
-          </Routes>
-
-        </main>
-        <Footer />
-      </Router>
+      <UserProvider>
+        <Router>
+          <TheHeader />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/products/:id" element={<ProductDetail />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout cartItems={mockCart} />} />
+            </Routes>
+          </main>
+          <Footer />
+        </Router>
+      </UserProvider>
     </ProductsProvider>
   );
 }

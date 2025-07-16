@@ -1,34 +1,31 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { UserContext } from "../context/UserContext/UserState";
 import "../assets/styles/views/profile.scss";
 
 const Profile = () => {
-  // Ejemplo para testear la página
-  const user = {
-    username: "amysmith",
-    email: "amy@smith.com",
-  };
+  const { getUserInfo, user, error } = useContext(UserContext);
 
-  // Ejemplo para testear la página
-  const orders = [
-    { id: 1, date: "2025-07-01", total: 150.0 },
-    { id: 2, date: "2025-06-20", total: 89.99 },
-    { id: 3, date: "2025-05-15", total: 230.5 },
-  ];
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  if (error) return <p className="profile-container">Error: {error}</p>;
+  if (!user)
+    return <p className="profile-container">No has iniciado sesión.</p>;
+  const orders = user.Orders || [];
 
   return (
     <div className="profile-container">
       <div className="profile-card">
         <h2>Perfil de Usuario</h2>
         <p>
-          <strong>Usuario:</strong> {user.username}
-        </p>
-        <p>
-          <strong>Correo:</strong> {user.email}
+          <strong>Usuario:</strong> {user.name}
         </p>
       </div>
 
       <div className="orders-section">
         <h3>Mis Pedidos</h3>
+
         {orders.length === 0 ? (
           <p>No tienes pedidos aún.</p>
         ) : (
@@ -37,7 +34,7 @@ const Profile = () => {
               <li key={order.id} className="order-item">
                 <span>Pedido #{order.id}</span>
                 <span>Fecha: {order.date}</span>
-                <span>Total: {order.total.toFixed(2)}€</span>
+                {/* <span>Total: {order.total.toFixed(2)}€</span> */}
               </li>
             ))}
           </ul>

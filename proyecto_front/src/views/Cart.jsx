@@ -1,12 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/styles/views/cart.scss";
+// import { ProductsContext } from "../context/ProductsContext/ProductsState";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Producto A", price: 50, quantity: 2 },
-    { id: 2, name: "Producto B", price: 30, quantity: 1 },
-    { id: 3, name: "Producto C", price: 70, quantity: 3 },
-  ]);
+  // --> Modificar cuando tenga ProductsContext
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/products"); // Cambia por tu URL real
+        if (!res.ok) throw new Error("Error al cargar productos");
+        const data = await res.json();
+        const productsWithQuantity = data.map((product) => ({
+          ...product,
+          quantity: 1,
+        }));
+        setCartItems(productsWithQuantity);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchProducts();
+  }, []);
+  //Hasta aquí --> Modificar cuando tenga ProductsContext
 
   const handleQuantityChange = (id, delta) => {
     setCartItems((prev) =>
@@ -47,7 +64,7 @@ const Cart = () => {
             <div key={item.id} className="cart-item">
               <div className="info">
                 <h4>{item.name}</h4>
-                <p>Precio: {item.price.toFixed(2)}€</p>
+                <p>Precio: {parseFloat(item.price).toFixed(2)}€</p>
                 <div className="quantity">
                   <button onClick={() => handleQuantityChange(item.id, -1)}>
                     -
