@@ -1,5 +1,6 @@
+// home.scss
 .home {
-  width: 100%;
+  width: 90.5%;
   min-height: 75vh; // ocupa toda la altura de la pantalla
   padding: 6vh 5vw;  // usa unidades relativas para adaptarse mejor
   background-size: cover;
@@ -72,6 +73,72 @@
       font-size: 1rem;
       width: 100%;
       text-align: center;
+    }
+  }
+}
+
+.novedades {
+  padding: 4rem 5vw;
+  /* Sin imagen de fondo */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+
+  &__title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #1d1825;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+  }
+
+  &__card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    max-width: 260px;
+    text-align: center;
+  }
+
+  &__image {
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  &__name {
+    margin: 1rem 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1d1825;
+  }
+
+  &__price {
+    color: #555;
+    font-size: 1rem;
+  }
+
+  &__button {
+    margin-top: 2rem;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    background-color: #1d1825;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #3a3740;
     }
   }
 }
