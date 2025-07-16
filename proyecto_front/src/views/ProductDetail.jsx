@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { CartContext } from "../context/CartContext/CartState.jsx";
 import '../assets/styles/views/productDetail.scss';
 
 const ProductDetail = () => {
@@ -7,6 +8,8 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [addedMessage, setAddedMessage] = useState(""); // 👈 mensaje
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -22,14 +25,19 @@ const ProductDetail = () => {
     fetchProduct();
   }, [id]);
 
+  const handleAddToCart = () => {
+    if (product && quantity > 0) {
+      addToCart(product, quantity);
+      setAddedMessage(`${quantity} unidad(es) de "${product.name}" añadida(s) al carrito ✅`);
+
+      // Ocultar mensaje después de 3 segundos
+      setTimeout(() => setAddedMessage(""), 3000);
+    }
+  };
+
   if (!product) {
     return <p>Cargando producto...</p>;
   }
-
-  const handleAddToCart = () => {
-    console.log(`Añadir ${quantity} unidad(es) de ${product.name} al carrito`);
-    // Aquí puedes disparar una acción o contexto de carrito
-  };
 
   return (
     <section className="product-detail">
@@ -49,6 +57,8 @@ const ProductDetail = () => {
         />
         <div className="product-meta">
           <h1>{product.name}</h1>
+          {/* ✅ Mensaje HTML */}
+          {addedMessage && <p className="added-message">{addedMessage}</p>}
           <p className="price">{product.price}€</p>
           <p className="category">Categoría: {product.Category?.name || 'Sin categoría'}</p>
 
@@ -65,6 +75,7 @@ const ProductDetail = () => {
           <button className="add-to-cart" onClick={handleAddToCart}>
             Añadir al carrito
           </button>
+
         </div>
       </div>
     </section>

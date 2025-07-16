@@ -1,21 +1,36 @@
 .cart-container {
   max-width: 800px;
   margin: 2rem auto;
-  padding: 1rem;
+  padding: 2rem 1rem;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 10px #0000001a;
+
+  // altura mínima para mantener el footer abajo
+  min-height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; // centrado horizontal
 
   h2 {
     text-align: center;
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
+    width: 100%;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
   }
 
   .cart-items {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    width: 100%; // asegurar ancho para items
   }
 
   .cart-item {
@@ -29,17 +44,26 @@
 
     .info {
       flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
       h4 {
-        margin-bottom: 0.5rem;
+        margin: 0;
         font-size: 1.1rem;
+        flex: 1;
+      }
+
+      p {
+        margin: 0 1rem 0 0;
+        font-size: 1rem;
+        white-space: nowrap;
       }
 
       .quantity {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        margin-top: 0.5rem;
 
         button {
           padding: 0.3rem 0.7rem;
@@ -56,6 +80,9 @@
 
         span {
           font-size: 1rem;
+          min-width: 20px;
+          text-align: center;
+          display: inline-block;
         }
       }
     }
@@ -68,6 +95,7 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 0.9rem;
+      margin-left: 1vw;
 
       &:hover {
         background-color: #c82333;
@@ -76,13 +104,17 @@
   }
 
   .cart-total {
-    text-align: right;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; // precio total a la derecha, texto a la izquierda
+    align-items: center;
     padding-top: 1rem;
     border-top: 1px solid #ddd;
+    margin-top: auto;
 
     p {
       font-size: 1.2rem;
-      margin-bottom: 1rem;
+      margin: 0;
     }
 
     .checkout {
@@ -106,6 +138,15 @@
   .cart-item {
     flex-direction: column;
     align-items: flex-start;
+
+    .info {
+      flex-direction: column;
+      align-items: flex-start;
+
+      p {
+        margin: 0.5rem 0;
+      }
+    }
 
     .remove {
       align-self: flex-end;

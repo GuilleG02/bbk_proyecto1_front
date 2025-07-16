@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProductsProvider } from "./context/ProductsContext/ProductsState.jsx";
 import { UserProvider } from "./context/UserContext/UserState";
+import { CartProvider } from "./context/CartContext/CartState.jsx";
 
 import "./App.css";
 import Home from "./views/Home";
@@ -14,32 +15,30 @@ import Profile from "./views/Profile";
 import Cart from "./views/Cart";
 import Checkout from "./views/Checkout";
 
-const mockCart = [
-  { id: 1, name: "Producto A", price: 50, quantity: 2 },
-  { id: 2, name: "Producto B", price: 30, quantity: 1 },
-  { id: 3, name: "Producto C", price: 60, quantity: 3 },
-];
+
 
 function App() {
   return (
     <ProductsProvider>
       <UserProvider>
-        <Router>
-          <TheHeader />
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/:id" element={<ProductDetail />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout cartItems={mockCart} />} />
-            </Routes>
-          </main>
-          <Footer />
-        </Router>
+        <CartProvider>
+          <Router>
+            <TheHeader />
+            <main className="main-content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/:id" element={<ProductDetail />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/cart" element={<Cart />} />
+                {/* <Route path="/checkout" element={<Checkout cartItems={mockCart} />} /> */}
+              </Routes>
+            </main>
+            <Footer />
+          </Router>
+        </CartProvider>
       </UserProvider>
     </ProductsProvider>
   );

@@ -1,57 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../context/CartContext/CartState.jsx";
 import "../assets/styles/views/cart.scss";
-// import { ProductsContext } from "../context/ProductsContext/ProductsState";
 
 const Cart = () => {
-  // --> Modificar cuando tenga ProductsContext
-  const [cartItems, setCartItems] = useState([]);
+  const {
+    cartItems,
+    removeFromCart,
+    updateQuantity,
+    clearCart,
+    total,
+  } = useContext(CartContext);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch("http://localhost:3001/products"); // Cambia por tu URL real
-        if (!res.ok) throw new Error("Error al cargar productos");
-        const data = await res.json();
-        const productsWithQuantity = data.map((product) => ({
-          ...product,
-          quantity: 1,
-        }));
-        setCartItems(productsWithQuantity);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchProducts();
-  }, []);
-  //Hasta aquí --> Modificar cuando tenga ProductsContext
-
-  const handleQuantityChange = (id, delta) => {
-    setCartItems((prev) =>
-      prev
-        .map((item) =>
-          item.id === id
-            ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-            : item
-        )
-        .filter((item) => item.quantity > 0)
-    );
-  };
-
-  const handleRemove = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
+  // Asumiendo IVA del 21%
+  const iva = total * 0.21;
+  const subtotal = total - iva;
 
   const handleCheckout = () => {
     console.log("Pedido realizado:", cartItems);
     alert("¡Pedido enviado!");
-    // Aquí podrías enviar los datos a una API y vaciar el carrito
-    setCartItems([]);
+    clearCart();
   };
-
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
 
   return (
     <div className="cart-container">
@@ -63,24 +31,28 @@ const Cart = () => {
           {cartItems.map((item) => (
             <div key={item.id} className="cart-item">
               <div className="info">
-                <h4>{item.name}</h4>
-                <p>Precio: {parseFloat(item.price).toFixed(2)}€</p>
+                <div className="product-header">
+                  <h4>{item.name}</h4>
+                  <p className="price">{parseFloat(item.price).toFixed(2)}€</p>
+                </div>
                 <div className="quantity">
-                  <button onClick={() => handleQuantityChange(item.id, -1)}>
-                    -
-                  </button>
+                  <button onClick={() => updateQuantity(item.id, -1)}>-</button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => handleQuantityChange(item.id, 1)}>
-                    +
-                  </button>
+                  <button onClick={() => updateQuantity(item.id, 1)}>+</button>
                 </div>
               </div>
-              <button className="remove" onClick={() => handleRemove(item.id)}>
+              <button className="remove" onClick={() => removeFromCart(item.id)}>
                 Eliminar
               </button>
             </div>
           ))}
           <div className="cart-total">
+            <p>
+              <strong>Subtotal:</strong> {subtotal.toFixed(2)}€
+            </p>
+            <p>
+              <strong>IVA (21%):</strong> {iva.toFixed(2)}€
+            </p>
             <p>
               <strong>Total:</strong> {total.toFixed(2)}€
             </p>
