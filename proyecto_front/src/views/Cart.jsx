@@ -1,15 +1,12 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext/CartState.jsx";
 import "../assets/styles/views/cart.scss";
 
 const Cart = () => {
-  const {
-    cartItems,
-    removeFromCart,
-    updateQuantity,
-    clearCart,
-    total,
-  } = useContext(CartContext);
+  const navigate = useNavigate();
+  const { cartItems, removeFromCart, updateQuantity, clearCart, total } =
+    useContext(CartContext);
 
   // Asumiendo IVA del 21%
   const iva = total * 0.21;
@@ -17,8 +14,7 @@ const Cart = () => {
 
   const handleCheckout = () => {
     console.log("Pedido realizado:", cartItems);
-    alert("¡Pedido enviado!");
-    clearCart();
+    navigate("/checkout", { state: { cartItems } });
   };
 
   return (
@@ -41,7 +37,10 @@ const Cart = () => {
                   <button onClick={() => updateQuantity(item.id, 1)}>+</button>
                 </div>
               </div>
-              <button className="remove" onClick={() => removeFromCart(item.id)}>
+              <button
+                className="remove"
+                onClick={() => removeFromCart(item.id)}
+              >
                 Eliminar
               </button>
             </div>
