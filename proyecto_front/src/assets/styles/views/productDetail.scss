@@ -1,7 +1,7 @@
 .product-detail {
   padding: 2rem;
   max-width: 1000px;
-  margin: 3rem auto; /* Cambié el margin para añadir espacio arriba y abajo */
+  margin: 3rem auto;
   background-color: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
@@ -10,7 +10,7 @@
 .back-button {
   background: none;
   border: none;
-  color: #ccc; // mismo color que la barra espaciadora de los filtros
+  color: #ccc;
   font-size: 1rem;
   cursor: pointer;
   margin-bottom: 1rem;
@@ -35,10 +35,44 @@
   .product-meta {
     flex: 1;
 
-    h1 {
-      font-size: 2rem;
+    .product-title {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
       margin-bottom: 1rem;
-      color: #1d1825;
+
+      h1 {
+        font-size: 2rem;
+        color: #1d1825;
+        margin: 0;
+      }
+
+      .favorite-button {
+        font-size: 1.4rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #ccc;
+        transition: color 0.3s ease;
+        margin: 0;
+        padding: 0;
+        padding-left: 0.2vw;
+        line-height: 1;
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
+
+        &.active {
+          color: gold;
+        }
+
+        &:hover {
+          color: #ffcc00;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
     }
 
     .price {
@@ -91,9 +125,145 @@
   animation: fadeOut 3s forwards;
 
   @keyframes fadeOut {
-    0% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { opacity: 0; }
+    0% {
+      opacity: 1;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
   }
 }
 
+.reviews-section {
+  margin-top: 2rem;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+
+  h2 {
+    margin-bottom: 1rem;
+    color: #1d1825;
+    font-size: 1.6rem;
+  }
+
+  .review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      label {
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+        color: #1d1825;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+        padding: 0.8rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: inherit;
+        width: calc(100% - 1.6rem);
+      }
+
+      select {
+        width: 120px;
+        padding: 0.4rem;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+      }
+    }
+
+    .rating-group {
+      align-items: flex-start;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      /* <-- Espacio debajo del botón */
+
+      button {
+        background-color: #1d1825;
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #3a3740;
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+
+      .error-message {
+        color: red;
+        font-weight: 600;
+      }
+    }
+
+  }
+
+  .reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .review-item {
+      background-color: #f9f9f9;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+      .review-header {
+        font-weight: 700;
+        color: #1d1825;
+        margin-bottom: 0.4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .review-content {
+        font-size: 1rem;
+        color: #444;
+        margin-bottom: 0.4rem;
+      }
+
+      .review-rating {
+        color: gold;
+        font-weight: 600;
+        font-size: 1.1rem;
+        user-select: none;
+      }
+    }
+  }
+}
