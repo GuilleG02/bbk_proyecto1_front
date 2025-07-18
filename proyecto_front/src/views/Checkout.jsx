@@ -1,9 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import { CartContext } from "../context/CartContext/CartState";
+import { useNavigate } from "react-router-dom";
 import "../assets/styles/views/checkout.scss";
 
 const Checkout = () => {
   const { cartItems, clearCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   const [paymentData, setPaymentData] = useState({
     name: "",
@@ -14,6 +16,16 @@ const Checkout = () => {
 
   const [formErrors, setFormErrors] = useState({});
   const [paid, setPaid] = useState(false);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const storedUserId = JSON.parse(localStorage.getItem("user_id"));
+    if (storedUserId) {
+      setUserId(storedUserId);
+    } else {
+      console.error("ID de usuario no disponible.");
+    }
+  }, []);
 
   //FORMATEAR CAMPOS
   const formatCardNumber = (value) => {
@@ -85,7 +97,7 @@ const Checkout = () => {
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (Object.keys(formErrors).length === 0) {
@@ -94,8 +106,35 @@ const Checkout = () => {
         paymentData,
         cartItems,
       });
-      setPaid(true);
-      clearCart();
+
+      const order = {
+        products: cartItems.map((item) => item.id),
+        user_id: userId,
+      };
+
+      // ENVIAR PEDIDO A LA API
+      try {
+        const response = await fetch("http://localhost:3001/orders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(order),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error al realizar el pedido: ${response.status}`);
+        }
+
+        setPaid(true);
+        clearCart();
+
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
+      } catch (error) {
+        console.error("Error al realizar el pedido:", error);
+      }
     }
   };
 
