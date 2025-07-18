@@ -4,7 +4,7 @@
   padding: 1rem;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px #0000001a;
 
   h2 {
     text-align: center;
@@ -38,17 +38,19 @@
     .row {
       display: flex;
       gap: 1rem;
+    }
 
-      input {
-        flex: 1;
-      }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
 
     button {
       padding: 0.9rem;
       font-size: 1rem;
       background-color: #007bff;
-      color: white;
+      color: #ffffff;
       border: none;
       border-radius: 6px;
       cursor: pointer;
@@ -77,15 +79,25 @@
     }
 
     p {
-      margin-top: 1rem;
+      margin-top: 0.5rem;
       font-weight: bold;
     }
   }
+}
+
+.error {
+  color: #778899b7;
+  font-size: 0.8rem;
+  margin-top: 0.5px;
 }
 
 // Responsive design
 @media (max-width: 768px) {
   .checkout-wrapper {
     flex-direction: column;
+  }
+  .payment-form .row {
+    flex-direction: column;
+    gap: 1rem;
   }
 }

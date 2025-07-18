@@ -17,6 +17,8 @@ import Profile from "./views/Profile";
 import Cart from "./views/Cart";
 import Checkout from "./views/Checkout";
 
+
+
 function App() {
   return (
     <ProductsProvider>
@@ -41,7 +43,7 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/cart" element={<Cart />} />
-                  {/* <Route path="/checkout" element={<Checkout cartItems={mockCart} />} /> */}
+                  <Route path="/checkout" element={<Checkout cartItems={mockCart} />} />
                 </Routes>
               </main>
               <Footer />

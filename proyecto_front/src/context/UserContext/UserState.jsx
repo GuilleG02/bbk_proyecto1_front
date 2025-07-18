@@ -2,7 +2,7 @@ import { createContext, useReducer, useEffect } from "react";
 import UserReducer from "./UserReducer";
 const API_URL = "http://localhost:3001";
 
-const tokenStorage = JSON.parse(localStorage.getItem("token"));
+const tokenStorage = localStorage.getItem("token");
 
 const initialState = {
   token: tokenStorage ? tokenStorage : null,
@@ -14,6 +14,12 @@ export const UserContext = createContext(initialState);
 
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(UserReducer, initialState);
+
+  useEffect(() => {
+    if (state.token) {
+      getUserInfo(state.token);
+    }
+  }, [state.token]);
 
   const login = async (userInput) => {
     try {
@@ -31,8 +37,13 @@ export const UserProvider = ({ children }) => {
       dispatch({ type: "LOGIN", payload: data });
 
       if (data) {
-        localStorage.setItem("token", JSON.stringify(data.token));
-        await getUserInfo();
+        const token = data.token;
+        const userId = data.user.id;
+        localStorage.setItem("token", token);
+        // localStorage.setItem("token", JSON.stringify(token));
+        localStorage.setItem("user_id", JSON.stringify(userId));
+
+        // await getUserInfo(token);
       }
       return true;
     } catch (error) {
@@ -41,9 +52,9 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const getUserInfo = async () => {
+  const getUserInfo = async (tokenArg = null) => {
     try {
-      const tokenStorage = JSON.parse(localStorage.getItem("token"));
+      const tokenStorage = tokenArg || localStorage.getItem("token");
       if (!tokenStorage) throw new Error("Token inválido o expirado");
 
       const res = await fetch(`${API_URL}/users/me`, {
@@ -72,7 +83,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    const token = JSON.parse(localStorage.getItem("token"));
+    const token = localStorage.getItem("token");
     try {
       const res = await fetch(`${API_URL}/users/logout`, {
         method: "DELETE",
@@ -90,6 +101,7 @@ export const UserProvider = ({ children }) => {
       dispatch({ type: "LOGOUT", payload: data });
       if (data) {
         localStorage.removeItem("token");
+        localStorage.removeItem("user_id");
       }
     } catch (error) {
       console.error("Error durante el logout:", error);
