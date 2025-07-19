@@ -100,7 +100,7 @@
     }
   }
 
-  // 🔽 Responsive para móviles/tablets
+  // Responsive para móviles/tablets
   @media (max-width: 768px) {
     background-image: none;
     background-color: #ffffff;
@@ -115,7 +115,7 @@
 
     h1,
     p,
-    .home{
+    .home {
       max-width: 370px;
     }
     .home__cta {
@@ -152,7 +152,6 @@
   }
 }
 
-// Sección de novedades
 .novedades {
   padding: 4rem 5vw;
   background-size: cover;
@@ -186,6 +185,8 @@
     @media (max-width: 810px) {
       max-width: 90vw;
       margin: 0 auto;
+      padding: 1rem 1.5rem;
+      box-shadow: none;
     }
   }
 
@@ -194,8 +195,12 @@
     height: auto;
     object-fit: cover;
     border-radius: 12px;
-    margin: 0 auto; // centramos imagen en carrusel
+    margin: 0 auto;
     display: block;
+
+    @media (max-width: 810px) {
+      width: 70%; /* Más grande en móvil */
+    }
   }
 
   &__name {
@@ -227,48 +232,74 @@
   }
 }
 
-/* Media query para dispositivos hasta 810px (carrusel ON) */
+/* Slick carousel arrows y dots personalizados para móvil */
 @media (max-width: 810px) {
-  .novedades {
-    padding: 3rem 5vw;
-    &__title {
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-    }
+  .slick-slider {
+    margin: 0 -20px; /* Para que las flechas estén pegadas a los bordes */
+  }
 
-    &__card {
-      max-width: 90vw;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
-      box-shadow: none; // opcional para carrusel más limpio
-    }
+  .slick-prev,
+  .slick-next {
+    width: 30px !important;
+    height: 30px !important;
+    z-index: 10;
+    top: 45% !important;
+    background-color: rgba(29, 24, 37, 0.7);
+    border-radius: 50%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    color: white !important;
+    transition: background-color 0.3s ease;
+  }
 
-    &__image {
-      width: 70%;
-    }
+  .slick-prev:hover,
+  .slick-next:hover {
+    background-color: rgba(29, 24, 37, 0.9);
+  }
+
+  .slick-prev {
+    left: 5px !important;
+  }
+
+  .slick-next {
+    right: 5px !important;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 25px !important;
+    color: white !important;
+    opacity: 1 !important;
+  }
+
+  .slick-dots {
+    bottom: 10px !important;
+  }
+
+  .slick-dots li button:before {
+    font-size: 12px;
+    color: #1d1825;
+    opacity: 0.6;
+  }
+
+  .slick-dots li.slick-active button:before {
+    color: #1d1825;
+    opacity: 1;
   }
 }
 
-/* Media query para dispositivos desde 811px (carrusel OFF) */
-@media (min-width: 811px) {
-  .novedades {
-    padding: 4rem 5vw;
-    &__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      justify-items: center;
-    }
-    &__card {
-      max-width: 260px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin: 0;
-      padding: 1rem;
-    }
+@media (max-width: 810px) {
+  .slick-dots li button:before {
+    font-size: 24px !important; /* Tamaño mucho más grande */
+    color: #1d1825;
+    opacity: 0.6;
+    margin-top: 2vh;
+  }
 
-    &__image {
-      width: 50%;
-    }
+  .slick-dots li.slick-active button:before {
+    color: #1d1825;
+    opacity: 1;
   }
 }
 
