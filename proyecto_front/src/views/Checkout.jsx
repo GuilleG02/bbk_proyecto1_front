@@ -27,7 +27,7 @@ const Checkout = () => {
     }
   }, []);
 
-  //FORMATEAR CAMPOS
+
   const formatCardNumber = (value) => {
     const cleaned = value.replace(/\D/g, "").slice(0, 20);
     const groups = cleaned.match(/.{1,4}/g);
@@ -57,7 +57,7 @@ const Checkout = () => {
     setPaymentData((prev) => ({ ...prev, [name]: formattedValue }));
   };
 
-  //VALIDAR CAMPOS
+
   const validateForm = () => {
     const errors = {};
     const number = paymentData.cardNumber.replace(/\s/g, "");
@@ -106,7 +106,6 @@ const Checkout = () => {
         user_id: userId,
       };
 
-      // ENVIAR PEDIDO A LA API
       try {
         const response = await fetch("http://localhost:3001/orders", {
           method: "POST",

@@ -1,4 +1,4 @@
-// src/context/CartContext/CartReducer.jsx
+
 const CartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":

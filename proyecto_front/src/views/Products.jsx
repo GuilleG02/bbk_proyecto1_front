@@ -11,15 +11,24 @@ const Products = () => {
   const [maxPrice, setMaxPrice] = useState(100);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
     getProducts();
   }, []);
 
-  // Filtrado y ordenación local (no es necesario hacerlo backend, asi es mas rapido)
+  // Obtener categorías únicas
+  const categories = [
+    ...new Set(products.map(p => p.Category?.name).filter(Boolean))
+  ];
+
+  // Filtrado y ordenación local
   const filteredProducts = products
     .filter(p => p.price <= maxPrice)
     .filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    .filter(p =>
+      selectedCategory === 'all' ? true : p.Category?.name === selectedCategory
+    )
     .sort((a, b) => {
       if (sortOrder === 'asc') return a.price - b.price;
       else return b.price - a.price;
@@ -38,7 +47,6 @@ const Products = () => {
               placeholder="Búsqueda"
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              style={{ marginTop: '0.5rem' }}
             />
           </label>
 
@@ -61,6 +69,21 @@ const Products = () => {
             >
               <option value="asc">Precio: menor a mayor</option>
               <option value="desc">Precio: mayor a menor</option>
+            </select>
+          </label>
+
+          <label>
+            Categoría:
+            <select
+              value={selectedCategory}
+              onChange={e => setSelectedCategory(e.target.value)}
+            >
+              <option value="all">Todas</option>
+              {categories.map(cat => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
             </select>
           </label>
         </aside>

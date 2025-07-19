@@ -8,7 +8,7 @@ const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, clearCart, total } =
     useContext(CartContext);
 
-  // Asumiendo IVA del 21%
+
   const iva = total * 0.21;
   const subtotal = total - iva;
 

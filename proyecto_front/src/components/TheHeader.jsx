@@ -4,10 +4,13 @@ import { FaUser, FaShoppingCart } from "react-icons/fa";
 import "../assets/styles/components/header.scss";
 import Logo from "./Logo";
 import { UserContext } from "../context/UserContext/UserState";
+import { CartContext } from "../context/CartContext/CartState.jsx";
 
 const TheHeader = () => {
   const navigate = useNavigate();
   const { token, logout } = useContext(UserContext);
+  const { cartItems } = useContext(CartContext);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -18,6 +21,8 @@ const TheHeader = () => {
       navigate("/login");
     }, 2000);
   };
+
+  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -47,16 +52,19 @@ const TheHeader = () => {
               Products
             </Link>
           </li>
-          <li>
+          <li className="cart-icon">
             <Link to="/cart" className="header__link">
               <FaShoppingCart size={20} />
+              {totalQuantity > 0 && (
+                <span className="cart-count">{totalQuantity}</span>
+              )}
             </Link>
           </li>
 
           {token ? (
             <li ref={dropdownRef}>
               <button
-                className="profile-button"
+                className={`profile-button ${dropdownOpen ? "active" : ""}`}
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 <FaUser size={20} />
