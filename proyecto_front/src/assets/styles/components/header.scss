@@ -28,7 +28,7 @@
   &__logo-link {
     display: flex;
     align-items: center;
-    margin-right: auto; // Logo a la izquierda, links a la derecha
+    margin-right: auto;
     z-index: 10;
   }
 
@@ -111,6 +111,32 @@
     }
   }
 
-  // Responsive para móviles
+  // ✅ SOLO PARA TABLET Y MÓVIL
+  @media (max-width: 775px) {
+    background-color: #1d1825;
+    padding: 1rem 1.5rem;
 
+    &::before {
+      display: none;
+    }
+
+    &__links li {
+      .header__link,
+      .profile-button {
+        color: #ffffff;
+
+        &:hover {
+          color: #cccccc;
+        }
+
+        &.active {
+          border-bottom: 2px solid #ffffff;
+        }
+      }
+    }
+
+    .profile-dropdown {
+      color: #1d1825;
+    }
+  }
 }

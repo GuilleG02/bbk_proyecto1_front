@@ -7,7 +7,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   padding: 4.5vh 5vw;
-  background-image: url('../images/fondohome_sinrayado.png'); 
+  background-image: url('../images/fondohome_sinrayado.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -100,21 +100,59 @@
     }
   }
 
-  // Responsive para móviles: fondo negro sólido, sin polígono ni imagen
+  // 🔽 Responsive para móviles/tablets
   @media (max-width: 768px) {
     background-image: none;
-    background-color: #1d1825;
+    background-color: #ffffff;
+    text-align: left;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 6vh 5vw;
 
     &::before {
-      opacity: 0;
-      pointer-events: none;
+      display: none;
+    }
+
+    h1,
+    p,
+    .home{
+      max-width: 370px;
+    }
+    .home__cta {
+      text-align: left;
+      max-width: 90vw;
+    }
+
+    &__title {
+      color: #1d1825;
+      font-size: 1.8rem;
+      margin-top: 0;
+    }
+
+    &__subtitle {
+      color: #1d1825;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      max-width: 300px;
+    }
+
+    &__cta {
+      background-color: #1d1825;
+      color: #ffffff;
+      font-size: 1rem;
+      padding: 0.8rem 2rem;
+      max-width: 100%;
+      width: auto;
+      text-align: left;
+
+      &:hover {
+        background-color: #3a3740;
+      }
     }
   }
 }
-  
 
-
-// Sección de novedades conservada
+// Sección de novedades
 .novedades {
   padding: 4rem 5vw;
   background-size: cover;
@@ -144,6 +182,11 @@
     padding: 1rem;
     max-width: 260px;
     text-align: center;
+
+    @media (max-width: 810px) {
+      max-width: 90vw;
+      margin: 0 auto;
+    }
   }
 
   &__image {
@@ -151,6 +194,8 @@
     height: auto;
     object-fit: cover;
     border-radius: 12px;
+    margin: 0 auto; // centramos imagen en carrusel
+    display: block;
   }
 
   &__name {
@@ -181,3 +226,49 @@
     }
   }
 }
+
+/* Media query para dispositivos hasta 810px (carrusel ON) */
+@media (max-width: 810px) {
+  .novedades {
+    padding: 3rem 5vw;
+    &__title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    &__card {
+      max-width: 90vw;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      box-shadow: none; // opcional para carrusel más limpio
+    }
+
+    &__image {
+      width: 70%;
+    }
+  }
+}
+
+/* Media query para dispositivos desde 811px (carrusel OFF) */
+@media (min-width: 811px) {
+  .novedades {
+    padding: 4rem 5vw;
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      justify-items: center;
+    }
+    &__card {
+      max-width: 260px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin: 0;
+      padding: 1rem;
+    }
+
+    &__image {
+      width: 50%;
+    }
+  }
+}
+
