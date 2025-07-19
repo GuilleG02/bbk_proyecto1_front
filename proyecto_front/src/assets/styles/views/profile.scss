@@ -63,6 +63,23 @@
   }
 }
 
+.product-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
+
+  .product-item {
+    padding: 0.5rem 0;
+    color: #1d1825;
+
+    &::before {
+      content: "• ";
+      color: #666666;
+      margin-right: 0.3rem;
+    }
+  }
+}
+
 // RESPONSIVE
 @media (max-width: 768px) {
   .profile-container {
@@ -85,7 +102,12 @@
     font-size: 1.4rem;
   }
 
-  .order-item {
+  .product-item {
     font-size: 0.9rem;
+    padding: 0.4rem 0;
+  }
+
+  .order-item {
+    font-size: 0.3rem;
   }
 }

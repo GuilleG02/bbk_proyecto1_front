@@ -23,7 +23,7 @@ const Checkout = () => {
     if (storedUserId) {
       setUserId(storedUserId);
     } else {
-      console.error("ID de usuario no disponible.");
+      console.error("ID de usuario no disponible");
     }
   }, []);
 
@@ -67,11 +67,11 @@ const Checkout = () => {
     const currentMonth = new Date().getMonth() + 1;
 
     if (!paymentData.name.trim()) {
-      errors.name = "El nombre es obligatorio.";
+      errors.name = "El nombre es obligatorio";
     }
 
     if (number.length !== 20) {
-      errors.cardNumber = "El número debe tener 20 dígitos.";
+      errors.cardNumber = "El número debe tener 20 dígitos";
     }
 
     if (!/^\d{2}\/\d{2}$/.test(paymentData.expiry)) {
@@ -81,17 +81,17 @@ const Checkout = () => {
       const yy = parseInt(year);
 
       if (mm < 1 || mm > 12) {
-        errors.expiry = "El mes debe estar entre 01 y 12.";
+        errors.expiry = "El mes debe estar entre 01 y 12";
       } else if (
         yy < currentYear ||
         (yy === currentYear && mm < currentMonth)
       ) {
-        errors.expiry = "La tarjeta está expirada.";
+        errors.expiry = "La tarjeta está expirada";
       }
     }
 
     if (paymentData.cvv.length !== 3) {
-      errors.cvv = "El CVV debe tener 3 dígitos.";
+      errors.cvv = "El CVV debe tener 3 dígitos";
     }
 
     return errors;
@@ -101,12 +101,6 @@ const Checkout = () => {
     e.preventDefault();
 
     if (Object.keys(formErrors).length === 0) {
-      // SIMULACIÓN DEL PROCESO DE PAGO
-      console.log("Pago realizado con éxito:", {
-        paymentData,
-        cartItems,
-      });
-
       const order = {
         products: cartItems.map((item) => item.id),
         user_id: userId,

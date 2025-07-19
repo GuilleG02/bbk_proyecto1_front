@@ -27,7 +27,6 @@ const Register = () => {
       setError("Las contraseñas no coinciden");
       return;
     }
-    console.log("Datos de registro:", formData);
 
     try {
       const res = await fetch("http://localhost:3001/users", {
