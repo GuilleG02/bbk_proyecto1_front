@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext/CartState.jsx";
 import { ReviewsContext } from "../context/ReviewsContext/ReviewsState.jsx";
 import { ProductDetailContext } from "../context/ProductDetailContext/ProductDetailState.jsx";
-import '../assets/styles/views/productDetail.scss';
+import { FaEdit, FaTrash } from "react-icons/fa";
+import "../assets/styles/views/productDetail.scss";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -32,12 +33,16 @@ const ProductDetail = () => {
     }
   }, [product]);
 
+  const storedUserId = JSON.parse(localStorage.getItem("user_id"));
+
   const toggleFavorite = () => {
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     let updatedFavorites;
 
     if (isFavorite) {
-      updatedFavorites = storedFavorites.filter(favId => favId !== product.id);
+      updatedFavorites = storedFavorites.filter(
+        (favId) => favId !== product.id
+      );
     } else {
       updatedFavorites = [...storedFavorites, product.id];
     }
@@ -49,7 +54,9 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     if (product && quantity > 0) {
       addToCart(product, quantity);
-      setAddedMessage(`${quantity} unidad(es) de "${product.name}" añadida(s) al carrito ✅`);
+      setAddedMessage(
+        `${quantity} unidad(es) de "${product.name}" añadida(s) al carrito ✅`
+      );
       setTimeout(() => setAddedMessage(""), 3000);
     }
   };
@@ -60,7 +67,7 @@ const ProductDetail = () => {
     setReviewSubmitting(true);
 
     try {
-      const userId = 1; // ⚠️ Reemplaza con user.id real si tienes contexto de usuario
+      const userId = storedUserId || null;
 
       await addReview({
         content: reviewContent,
@@ -72,7 +79,6 @@ const ProductDetail = () => {
       setReviewContent("");
       setReviewRating(5);
       getReviews(product.id); // Actualiza reviews tras añadir
-
     } catch (error) {
       setReviewError(error.message);
     } finally {
@@ -84,10 +90,16 @@ const ProductDetail = () => {
 
   return (
     <section className="product-detail">
-      <button className="back-button" onClick={() => navigate(-1)}>← Volver</button>
+      <button className="back-button" onClick={() => navigate(-1)}>
+        ← Volver
+      </button>
 
       <div className="product-info">
-        <img src={`/images-products/${product.image}`} alt={product.name} className="product-image" />
+        <img
+          src={`/images-products/${product.image}`}
+          alt={product.name}
+          className="product-image"
+        />
         <div className="product-meta">
           <div className="product-title">
             <h1>{product.name}</h1>
@@ -95,12 +107,16 @@ const ProductDetail = () => {
               className={`favorite-button ${isFavorite ? "active" : ""}`}
               onClick={toggleFavorite}
               aria-label="Añadir a favoritos"
-            >★</button>
+            >
+              ★
+            </button>
           </div>
 
           {addedMessage && <p className="added-message">{addedMessage}</p>}
           <p className="price">{product.price}€</p>
-          <p className="category">Categoría: {product.Category?.name || 'Sin categoría'}</p>
+          <p className="category">
+            Categoría: {product.Category?.name || "Sin categoría"}
+          </p>
 
           <label className="quantity-selector">
             Cantidad:
@@ -141,15 +157,17 @@ const ProductDetail = () => {
               onChange={(e) => setReviewRating(Number(e.target.value))}
               required
             >
-              {[1, 2, 3, 4, 5].map(n => (
-                <option key={n} value={n}>{n} estrella{n > 1 ? 's' : ''}</option>
+              {[1, 2, 3, 4, 5].map((n) => (
+                <option key={n} value={n}>
+                  {n} estrella{n > 1 ? "s" : ""}
+                </option>
               ))}
             </select>
           </div>
 
           <div className="form-actions">
             <button type="submit" disabled={reviewSubmitting}>
-              {reviewSubmitting ? 'Enviando...' : 'Enviar reseña'}
+              {reviewSubmitting ? "Enviando..." : "Enviar reseña"}
             </button>
             {reviewError && <p className="error-message">{reviewError}</p>}
           </div>
@@ -161,9 +179,31 @@ const ProductDetail = () => {
               <div key={review.id} className="review-item">
                 <p className="review-header">
                   <strong>{review.user?.name || "Anónimo"}</strong>
-                  <span className="review-rating">{'★'.repeat(review.rating) + '☆'.repeat(5 - review.rating)}</span>
+                  <span className="review-rating">
+                    {"★".repeat(review.rating) + "☆".repeat(5 - review.rating)}
+                  </span>
                 </p>
+
                 <p className="review-content">{review.content}</p>
+
+                {storedUserId === review.user_id && (
+                  <div className="review-actions">
+                    <button
+                      className="edit-btn"
+                      title="Editar reseña"
+                      onClick={() => console.log("Editar reseña", review.id)}
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="delete-btn"
+                      title="Eliminar reseña"
+                      onClick={() => console.log("Eliminar reseña", review.id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                )}
               </div>
             ))
           ) : (

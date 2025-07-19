@@ -229,7 +229,6 @@
         font-weight: 600;
       }
     }
-
   }
 
   .reviews-list {
@@ -265,5 +264,28 @@
         user-select: none;
       }
     }
+  }
+}
+
+.review-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    font-size: 1rem;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+
+  .delete-btn:hover {
+    color: #e63946;
   }
 }
