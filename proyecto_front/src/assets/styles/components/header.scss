@@ -71,6 +71,17 @@
         &:hover {
           color: #666666;
         }
+
+        &:focus {
+          outline: none;
+          box-shadow: none;
+        }
+
+        &.active {
+          color: #666666;
+          outline: none;
+          box-shadow: none;
+        }
       }
 
       .profile-dropdown {
@@ -138,5 +149,30 @@
     .profile-dropdown {
       color: #1d1825;
     }
+  }
+}
+
+.cart-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .cart-count {
+    position: absolute;
+    top: 10px;
+    right: -8px;
+    background-color: #e63946;
+    color: white;
+    font-size: 0.55rem;
+    font-weight: 700;
+    padding: 2px 5px;
+    border-radius: 50%;
+    min-width: 5px;
+    height: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    user-select: none;
   }
 }
