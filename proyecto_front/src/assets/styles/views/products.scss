@@ -120,3 +120,33 @@
     }
   }
 }
+
+@media (max-width: 775px) {
+  .products-container {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .filters {
+    width: 100%;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .product-card {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
