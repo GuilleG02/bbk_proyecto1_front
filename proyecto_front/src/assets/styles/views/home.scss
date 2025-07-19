@@ -199,7 +199,7 @@
     display: block;
 
     @media (max-width: 810px) {
-      width: 70%; /* Más grande en móvil */
+      width: 70%; 
     }
   }
 
@@ -232,10 +232,10 @@
   }
 }
 
-/* Slick carousel arrows y dots personalizados para móvil */
+
 @media (max-width: 810px) {
   .slick-slider {
-    margin: 0 -20px; /* Para que las flechas estén pegadas a los bordes */
+    margin: 0 -20px; 
   }
 
   .slick-prev,
@@ -291,7 +291,7 @@
 
 @media (max-width: 810px) {
   .slick-dots li button:before {
-    font-size: 24px !important; /* Tamaño mucho más grande */
+    font-size: 24px !important;
     color: #1d1825;
     opacity: 0.6;
     margin-top: 2vh;

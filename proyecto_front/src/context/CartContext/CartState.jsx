@@ -17,7 +17,7 @@ export const CartContext = createContext(initialState);
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(CartReducer, initialState);
 
-  // Guardar carrito en localStorage cuando cambie
+
   useEffect(() => {
     localStorage.setItem(localStorageKey, JSON.stringify(state.cart));
   }, [state.cart]);
