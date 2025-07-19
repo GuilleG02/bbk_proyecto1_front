@@ -13,7 +13,6 @@ const Cart = () => {
   const subtotal = total - iva;
 
   const handleCheckout = () => {
-    console.log("Pedido realizado:", cartItems);
     navigate("/checkout", { state: { cartItems } });
   };
 
