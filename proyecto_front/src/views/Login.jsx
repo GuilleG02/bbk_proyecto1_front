@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { UserContext } from "../context/UserContext/UserState";
 import "../assets/styles/views/login.scss";
@@ -55,6 +55,9 @@ const Login = () => {
         </label>
         <button type="submit">Entrar</button>
         {error && <p className="error">{error}</p>}
+        <p className="register-link">
+          ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
+        </p>
       </form>
     </div>
   );
