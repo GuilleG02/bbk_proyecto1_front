@@ -27,14 +27,20 @@ const Profile = () => {
         <h3>Mis Pedidos</h3>
 
         {orders.length === 0 ? (
-          <p>No tienes pedidos aún.</p>
+          <p>No tienes pedidos aún</p>
         ) : (
           <ul className="order-list">
             {orders.map((order) => (
               <li key={order.id} className="order-item">
-                <span>Pedido #{order.id}</span>
-                <span>Fecha: {order.date}</span>
-                {/* <span>Total: {order.total.toFixed(2)}€</span> */}
+                <h4>Pedido #{order.id}</h4>
+                <p>Fecha: {new Date(order.createdAt).toLocaleDateString()}</p>
+                <ul className="product-list">
+                  {order.Products.map((product) => (
+                    <li key={product.id} className="product-item">
+                      {product.name}
+                    </li>
+                  ))}
+                </ul>
               </li>
             ))}
           </ul>
