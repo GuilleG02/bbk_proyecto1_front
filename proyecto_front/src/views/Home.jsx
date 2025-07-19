@@ -1,18 +1,17 @@
 import React, { useContext, useEffect } from 'react';
-import '../assets/styles/views/home.scss'
-import homeImage from '../assets/images/fondohome_rayado.png';
+import '../assets/styles/views/home.scss';
+import homeImage from '../assets/images/fondohome_sinrayado.png';
 import { ProductsContext } from '../context/ProductsContext/ProductsState.jsx';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
-
   const { getProducts, products } = useContext(ProductsContext);
 
   useEffect(() => {
     getProducts();
   }, []);
 
-  const novedades = products.slice(-3).reverse(); // últimos 3 productos
+  const novedades = products.slice(-3).reverse();
 
   return (
     <>
@@ -20,7 +19,17 @@ const Home = () => {
         className="home"
         style={{ backgroundImage: `url(${homeImage})` }}
       >
-        {/* Aquí tu sección principal con imagen */}
+        <h1 className="home__title">
+          Alcanza nuevas alturas.<br />
+          Tu aventura comienza aquí.
+        </h1>
+        <p className="home__subtitle">
+          “No conquistamos las montañas, sino a nosotros mismos.”<br />
+          — Sir Edmund Hillary
+        </p>
+        <Link to="/products">
+          <button className="home__cta">Explorar productos</button>
+        </Link>
       </section>
 
       <section className="novedades">
@@ -45,6 +54,5 @@ const Home = () => {
     </>
   );
 };
-
 
 export default Home;
